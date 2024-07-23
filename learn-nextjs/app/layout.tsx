@@ -1,4 +1,5 @@
 import Navigation from "../components/navigation"
+import '../styles/grobal.css'
 
 export const metadata = {
   title: 'Next.js',

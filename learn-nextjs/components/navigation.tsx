@@ -3,21 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import styles from "../styles/navigation.module.css"
 
 export default function Navigation() {
     const path = usePathname();
     const [count, setCount] = useState(0);
     return (
-        <nav>
-            <ul>
+        <nav className={styles.nav}>
+            <ul className={styles.list}>
                 <li>
-                    <Link href="/">Home</Link> {path === "/" ? "(라우트 구분)" : ""}
+                    <Link href="/">Home</Link>
                 </li>
                 <li>
-                    <Link href="/about-us">About Us</Link> {path === "/about-us" ? "(라우트 구분)" : ""}
-                </li>
-                <li>
-                    <button onClick={() => setCount((c) => c + 1)}> {count}</button>
+                    <Link href="/about-us">About Us</Link>
                 </li>
             </ul>
         </nav >

@@ -1,30 +1,31 @@
-import Link from "next/link";
+import Movie from "../../components/movie";
+import styles from "../../styles/home.module.css"; 
 
 export const metadata = {
-    title: "home"
-}
+  title: "Home", // 메타데이터 설정
+};
 
-export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
+export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies"; // API URL 정의
 
 // 영화 목록을 가져오는 비동기 함수
-async function GetMovies() {
-    console.log("fetching start");
-    const response = await fetch(API_URL, { next: { revalidate: 60 } }); // 60초 동안 캐싱
-    const json = await response.json();
-    return json; // JSON 형식으로 응답 반환
+async function getMovies() {
+  const response = await fetch(API_URL); // API 호출
+  const json = await response.json(); // 응답을 JSON 형식으로 파싱
+  return json; 
 }
 
-// 홈 페이지 컴포넌트: 영화 목록을 가져와서 렌더링
 export default async function HomePage() {
-    const movies = await GetMovies(); // 영화 목록을 비동기적으로 가져옴
-
-    return (
-        <div>
-            {movies.map(movie => (
-                <li key={movie.id}>
-                    <Link href={`/movies/${movie.id}`}>{movie.title}</Link> 
-                </li>
-            ))}
-        </div>
-    );
+  const movies = await getMovies(); // 영화 목록을 비동기적으로 가져옴
+  return (
+    <div className={styles.container}> 
+      {movies.map((movie) => (
+        <Movie
+          key={movie.id} 
+          id={movie.id} 
+          poster_path={movie.poster_path} 
+          title={movie.title}
+        />
+      ))}
+    </div>
+  );
 }

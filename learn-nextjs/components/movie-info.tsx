@@ -1,13 +1,28 @@
+import style from "../styles/movie-info.module.css";
 import { API_URL } from "../app/(home)/page";
 
-// 특정 ID에 대한 영화 정보를 가져오는 비동기 함수
 async function getMovie(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 지연
-    const response = await fetch(`${API_URL}/${id}`);
-    return response.json(); // JSON 형식으로 응답 반환
+  const response = await fetch(`${API_URL}/${id}`);
+  return response.json();
 }
 
 export default async function MovieInfo({ id }: { id: string }) {
-    const movie = await getMovie(id);
-    return <h6>{JSON.stringify(movie)}</h6>;
+  const movie = await getMovie(id);
+  return (
+    <div className={style.container}>
+      <img
+        src={movie.poster_path}
+        className={style.poster}
+        alt={movie.title}
+      />
+      <div className={style.info}>
+        <h1 className={style.title}>{movie.title}</h1>
+        <h3>⭐️ {movie.vote_average.toFixed(1)}</h3>
+        <p>{movie.overview}</p>
+        <a href={movie.homepage} target={"_blank"}>
+          Homepage &rarr;
+        </a>
+      </div>
+    </div>
+  );
 }
