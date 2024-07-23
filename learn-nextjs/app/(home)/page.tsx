@@ -1,11 +1,10 @@
 import Movie from "../../components/movie";
 import styles from "../../styles/home.module.css"; 
+import { API_URL } from "../constants";
 
 export const metadata = {
   title: "Home", // 메타데이터 설정
 };
-
-export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies"; // API URL 정의
 
 // 영화 목록을 가져오는 비동기 함수
 async function getMovies() {
